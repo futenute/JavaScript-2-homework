@@ -20,6 +20,10 @@ header {
     align-items: center;
 }
 
+main {
+	width: 1000px;
+}
+
 .products {
 	display: flex;
 	flex-direction: row;
@@ -29,6 +33,26 @@ header {
 
 .products div {
     width: 420px;
+	border: 1px solid #ebe7df;
+	border-radius: 10px;
+	background-color: #f0eee7;
+	padding: 20px;
+	margin: 10px;
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+	justify-content: space-around;
+}
+
+.cart {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.cart div {
+	width: 80%;
 	border: 1px solid #ebe7df;
 	border-radius: 10px;
 	background-color: #f0eee7;
