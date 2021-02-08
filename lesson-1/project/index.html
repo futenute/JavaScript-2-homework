@@ -10,15 +10,25 @@
 <body>
     <header>
         <h1>Интернет-магазин</h1>
-        <a href="pages/cart.html">
-            <button class="btn-cart" type="button">Корзина</button>
+        <a href="#">
+            <button class="btn-cart" type="button" onclick="cart.openCart()">Корзина</button>
         </a>
 
     </header>
     <main>
         <div class="products"></div>
+        <div class="cart-container" id="cart">
+            <div class="cart">
+                <h1>Корзина</h1>
+                <a href="#">
+                    <button class="btn-close-cart" type="button" onclick="cart.closeCart()">Закрыть</button>
+                </a>
+            </div>
+        </div>
+
     </main>
     <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 
 </html>

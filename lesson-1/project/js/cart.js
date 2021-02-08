@@ -2,20 +2,30 @@ class Cart {
     constructor(container = ".cart") {
         this.container = container;
         this.cartGoods = [];
-        this._fetchCartGoods();
+        this.allCartGoods = [];
+        this._getCartGoods()
+            .then(data => { //data - объект js
+                this.cartGoods = [...data.contents];
+                this.render()
+            });
+        this.totalCount = 0;
     }
 
-    _fetchCartGoods() {
-        this.cartGoods = [
-            { id: 1, title: 'Notebook', price: 2000 },
-            { id: 1, title: 'Notebook', price: 2000 },
-        ];
+    _getCartGoods() {
+        return fetch(`${API}/getBasket.json`)
+            .then(result => result.json())
+            .catch(error => {
+                console.log(error);
+            })
     }
+
+
 
     render() {
         const block = document.querySelector(this.container);
         for (let item of this.cartGoods) {
             const cartObj = new CartItem(item);
+            this.allCartGoods.push(cartObj);
             block.insertAdjacentHTML('beforeend', cartObj.render());
         }
         this.count();
@@ -23,25 +33,36 @@ class Cart {
 
     count() {
         const block = document.querySelector(this.container);
-        let totalCount = 0;
         let totalPrice = 0;
         for (let item of this.cartGoods) {
             const cartObj = new CartItem(item);
-            totalCount += 1;
+            this.totalCount += 1;
             totalPrice += cartObj.price;
         }
         let countHtml = `<div class='cart-count'>
-                            Товаров в корзине: ${totalCount} на сумму: ${totalPrice}&#8381
+                            Товаров в корзине: ${this.totalCount} <br> Сумма: ${totalPrice}&#8381
                         </div>`
         block.insertAdjacentHTML('beforeend', countHtml);
+
+        let cartBtn = document.getElementsByClassName('btn-cart');
+        cartBtn[0].insertAdjacentHTML('beforeend', ` (${this.totalCount})`);
+
+    }
+
+    openCart() {
+        document.getElementById("cart").style.display = "flex";
+    }
+
+    closeCart() {
+        document.getElementById("cart").style.display = "none";
     }
 }
 
 class CartItem {
     constructor(item) {
-        this.title = item.title;
+        this.title = item.product_name;
         this.price = item.price;
-        this.id = item.id;
+        this.id = item.id_product;
     }
 
     render() {
@@ -52,5 +73,7 @@ class CartItem {
     }
 }
 
+
+
 let cart = new Cart();
-cart.render();
+// cart.render();
