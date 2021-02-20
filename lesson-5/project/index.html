@@ -11,64 +11,20 @@
     <div id="app">
         <header>
             <img class="logo-img" src="img/logo.jpg" alt="">
-            <form action="#" class="search-form">
-                <input type="text" class="search-field">
-                <button class="btn-search" type="submit" @click="search()">
-                </button>
-            </form>
-            <button @click="show = !show" class="btn-cart" type="button"
-                onclick="console.log(app.show);">Корзина</button>
-            <div v-if="show" class="cart-container " id="cart">
-                <h2>Корзина</h3>
-                    <div class="cart-items">
-                        <div class="cart-item" v-for="item of productsCart">
-                            <h3>{{item.product_name}}</h3>
-                            <p>{{item.price}} $</p>
-                            <p>{{item.quantity}}шт</p>
-                            <button class="buy-btn" @click="addProduct(item)">Удалить</button>
-                        </div>
-                    </div>
-
-                    <button class="cart-buy-btn">Оформить заказ</button>
-            </div>
-            <div v-else="show" class="invisible"></div>
-
+            <search :search="search" :filtered="filtered" :user-search="userSearch"></search>
+            <button @click="show = !show;" class="btn-cart" type="button">Корзина ({{ countItems }})</button>
+            <cart :products-cart="productsCart" :show="show" :cart-remove="cartRemove" :count-items="countItems"
+                :count-price="countPrice"></cart>
         </header>
         <main>
-            <div class="products" v-if="!userSearch">
-                <div class="product-item" v-for="product of products">
-                    <div class="prod-left">
-                        <h3>{{product.product_name}}</h3>
-                        <img :src="imgCatalog" alt="Some img">
-                    </div>
-                    <div class="prod-right">
-                        <p>{{product.price}} $</p>
-                        <button class="buy-btn" @click="addProduct(product)">Купить</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="products" v-else="userSearch">
-                <div v-if="filtered.length > 0">
-                    <div class="product-item" v-for="product of filtered">
-                        <div class="prod-left">
-                            <h3>{{product.product_name}}</h3>
-                            <img :src="imgCatalog" alt="Some img">
-                        </div>
-                        <div class="prod-right">
-                            <p>{{product.price}} $</p>
-                            <button class="buy-btn" @click="addProduct(product)">Купить</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item" v-else>Ничего не найдено</div>
-            </div>
-
-
+            <products :img-catalog="imgCatalog" :add-product="addProduct" :user-search="userSearch" :products="products"
+                :filtered="filtered"></products>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/ProductComponent.js"></script>
+    <script src="js/SearchComponent.js"></script>
+    <script src="js/CartComponent.js"></script>
     <script src="js/main.js"></script>
 </body>
 

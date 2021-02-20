@@ -69,7 +69,7 @@ h1, h3 {
 .cart-container {
 	display: flex;
 	flex-direction: column;
-	width: 350px;
+	width: 425px;
 	/* height: 500px; */
 	z-index: 2;
 	position: absolute;
@@ -141,16 +141,24 @@ h1, h3 {
 
 .cart-items {
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .cart-item {
-	/* width: 100%; */
-	margin: 10px 10px;
-	padding: 10px 10px;
+	width: 95%;
+	margin: 10px 0;
+	padding: 10px 10px; 
 	box-sizing: border-box;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	background-color: #f0eee7;
 	border-radius: 10px;
+}
+
+.cart-empty {
+	justify-content: center;
 }

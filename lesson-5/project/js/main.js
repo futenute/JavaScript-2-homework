@@ -1,6 +1,7 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 const app = new Vue({
+
     el: '#app',
     data: {
         catalogUrl: '/catalogData.json',
@@ -10,7 +11,17 @@ const app = new Vue({
         imgCatalog: 'https://placehold.it/200x200',
         userSearch: '',
         filtered: [],
-        show: false
+        show: false,
+        // countItems: 0,
+        // countPrice: 0,
+    },
+    computed: {
+        countItems() {
+            return this.productsCart.reduce((totalQuantity, { quantity }) => totalQuantity + quantity, 0);
+        },
+        countPrice() {
+            return this.productsCart.reduce((sum, { price, quantity }) => sum + price * quantity, 0);
+        },
     },
     methods: {
         getJson(url) {
@@ -21,8 +32,33 @@ const app = new Vue({
                 })
         },
         addProduct(product) {
-            console.log(product.id_product);
+            let find = this.productsCart.find(el => el.id_product === product.id_product);
+            if (find) {
+                find.quantity++;
+            } else {
+                const prod = Object.assign({ quantity: 1 }, product);
+                this.productsCart.push(prod)
+            }
         },
+
+        cartRemove(product) {
+            if (product.quantity > 1) {
+                product.quantity--;
+            } else {
+                this.productsCart.splice(this.productsCart.indexOf(product), 1);
+            }
+        },
+
+        // cartCount() {
+        //     this.countItems = 0;
+        //     this.countPrice = 0;
+        //     for (item of this.productsCart) {
+        //         this.countItems += item.quantity;
+        //         this.countPrice += item.price * item.quantity;
+        //     }
+        //     console.log(this.productsCart);
+        //     console.log(this.countItems);
+        // },
 
         search() {
             this.userSearch = document.querySelector('.search-field').value;
@@ -50,14 +86,6 @@ const app = new Vue({
                     this.productsCart.push(el);
                 }
             });
-
-
     },
+});
 
-
-
-
-})
-// app.filter('мыш');
-app.search();
-console.log(app.userSearch);
