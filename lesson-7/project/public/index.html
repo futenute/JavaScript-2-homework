@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Интернет-магазин</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <img class="logo-img" src="img/logo.jpg" alt="">
+            <search :user-search="userSearch"></search>
+            <cart ref="cart"></cart>
+        </header>
+        <main>
+            <products :user-search="userSearch" ref="products"></products>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/ProductComponent.js"></script>
+    <script src="js/SearchComponent.js"></script>
+    <script src="js/CartComponent.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
